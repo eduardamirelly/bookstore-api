@@ -11,11 +11,15 @@ datasource db {
 }
 
 model Book {
-  id          Int     @id @default(autoincrement())
+  id          Int      @id @default(autoincrement())
   title       String
   description String
   author      String
   price       Float
   cover       String
-  isFavorite  Boolean @default(false)
+  isFavorite  Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("books")
 }
