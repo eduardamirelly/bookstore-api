@@ -1,8 +1,21 @@
-import { RequestHandler, Response } from "express";
+import { RequestHandler, response, Response } from "express";
 import { CreateBookService } from "./createBookService";
+import { ShowBookService } from "./showBookService";
 import { UpdateBookService } from "./updateBookService";
 
 export class BookController {
+  show: RequestHandler = async (request, response): Promise<Response> => {
+    const {
+      params: { bookId }
+    } = request;
+
+    const showBookService = new ShowBookService();
+
+    const book = await showBookService.execute(bookId);
+
+    return response.status(200).json(book);
+  }
+
   create: RequestHandler = async (request, response): Promise<Response> => {
     const { title, description, author, price, cover, isFavorite } = request.body;
 
