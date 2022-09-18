@@ -2,9 +2,12 @@
   "compilerOptions": {
     "sourceMap": true,
     "outDir": "dist",
-    "rootDir": "src",
+    "rootDir": "./src",
     "strict": true,
     "lib": ["esnext"],
-    "esModuleInterop": true
-  }
+    "esModuleInterop": true,
+    "target": "es6",
+    "moduleResolution": "Node",
+  },
+  "include": ["src"]
 }
