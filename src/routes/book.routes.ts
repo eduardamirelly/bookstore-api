@@ -6,5 +6,6 @@ const bookController = new BookController();
 const bookRoutes = Router();
 
 bookRoutes.post("/", bookController.create);
+bookRoutes.put("/:bookId", bookController.update);
 
 export { bookRoutes };

@@ -1,6 +1,7 @@
-import { BookPartial, BookType } from "../../../@types/book";
-import { prisma } from "../../../prisma/client";
 import { AppError } from "../../../utils/errors";
+import { prisma } from "../../../prisma/client";
+
+import { BookPartial, BookType } from "../../../@types/book";
 
 type CreateBookResponse = BookType;
 type CreateBookRequest = BookPartial;

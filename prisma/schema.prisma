@@ -13,7 +13,7 @@ datasource db {
 //Models
 
 model Book {
-  id          Int      @id @default(autoincrement())
+  id          String   @id @default(uuid())
   title       String
   description String
   author      String
