@@ -14,7 +14,13 @@ test("it should be possible to show the fields book...", async () => {
 
   expect(responseBookCreated.statusCode).toBe(201);
 
-  const response = await request(app).get(`/books/${responseBookCreated.body.id}`).send()
+  const response = await request(app).get(`/books/${responseBookCreated.body.id}`).send();
 
   expect(response.statusCode).toBe(200);
+})
+
+test("it shouldn't be possible to show the fields of a book that don't exists...", async () => {
+  const response = await request(app).get(`/books/1`).send();
+
+  expect(response.statusCode).toBe(400);
 })
