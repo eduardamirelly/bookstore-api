@@ -8,8 +8,7 @@ test("it should be possible to update the fields book, like price for example...
     description: 'Description example 2',
     author: 'Author example 2',
     price: 25.00,
-    cover: 'Cover example 2',
-    isFavorite: false,
+    cover: 'Cover example 2'
   })
 
   expect(responseBookCreated.statusCode).toBe(201);

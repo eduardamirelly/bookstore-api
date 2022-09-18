@@ -13,15 +13,16 @@ datasource db {
 //Models
 
 model Book {
-  id          String   @id @default(uuid())
-  title       String
-  description String
-  author      String
-  price       Float
-  cover       String
-  isFavorite  Boolean  @default(false)
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
+  id           String   @id @default(uuid())
+  title        String
+  description  String
+  author       String
+  price        Float
+  cover        String
+  isFavorite   Boolean  @default(false)
+  isInTreeding Boolean  @default(false)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
 
   @@map("books")
 }
