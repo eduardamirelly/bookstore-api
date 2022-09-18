@@ -8,5 +8,6 @@ const bookRoutes = Router();
 bookRoutes.get("/:bookId", bookController.show);
 bookRoutes.post("/", bookController.create);
 bookRoutes.put("/:bookId", bookController.update);
+bookRoutes.delete("/:bookId", bookController.delete);
 
 export { bookRoutes };

@@ -1,5 +1,6 @@
 import { RequestHandler, response, Response } from "express";
 import { CreateBookService } from "./createBookService";
+import { DeleteBookService } from "./deleteBookService";
 import { ShowBookService } from "./showBookService";
 import { UpdateBookService } from "./updateBookService";
 
@@ -26,7 +27,7 @@ export class BookController {
     return response.status(201).json(book);
   }
 
-  update: RequestHandler = async(request, response): Promise<Response> => {
+  update: RequestHandler = async (request, response): Promise<Response> => {
     const {
       params: { bookId },
       body
@@ -37,5 +38,17 @@ export class BookController {
     const book = await updateBookService.execute(bookId, body);
 
     return response.status(200).json(book);
+  }
+
+  delete: RequestHandler = async (request, response): Promise<Response> => {
+    const {
+      params: { bookId }
+    } = request;
+
+    const deleteBookService = new DeleteBookService();
+
+    await deleteBookService.execute(bookId);
+
+    return response.status(204).send();
   }
 }
