@@ -13,37 +13,37 @@ datasource db {
 //Models
 
 model Book {
-  id               String           @id @default(uuid())
-  title            String
-  description      String
-  author           String
-  price            Float
-  cover            String
-  isFavorite       Boolean          @default(false)
-  isInTreeding     Boolean          @default(false)
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @updatedAt
-  book_of_category BookOfCategory[] @relation("book")
+  id           String              @id @default(uuid())
+  title        String
+  description  String
+  author       String
+  price        Float
+  cover        String
+  isFavorite   Boolean             @default(false)
+  isInTreeding Boolean             @default(false)
+  createdAt    DateTime            @default(now())
+  updatedAt    DateTime            @updatedAt
+  categories   CategoriesOnBooks[]
 
   @@map("books")
 }
 
 model Category {
-  id               String           @id @default(uuid())
-  name             String
-  createdAt        DateTime         @default(now())
-  updatedAt        DateTime         @updatedAt
-  book_of_category BookOfCategory[] @relation("category")
+  id        String              @id @default(uuid())
+  name      String
+  createdAt DateTime            @default(now())
+  updatedAt DateTime            @updatedAt
+  books     CategoriesOnBooks[]
 
   @@map("categories")
 }
 
-model BookOfCategory {
-  book       Book     @relation("book", fields: [bookId], references: [id])
+model CategoriesOnBooks {
+  book       Book     @relation(fields: [bookId], references: [id])
   bookId     String
-  category   Category @relation("category", fields: [categoryId], references: [id])
+  category   Category @relation(fields: [categoryId], references: [id])
   categoryId String
 
   @@id([bookId, categoryId])
-  @@map("books_of_categories")
+  @@map("categories_on_books")
 }
