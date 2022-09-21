@@ -6,5 +6,6 @@ const categoryController = new CategoryController();
 const categoryRoutes = Router();
 
 categoryRoutes.post("/", categoryController.create);
+categoryRoutes.put("/:categoryId", categoryController.update);
 
 export { categoryRoutes };

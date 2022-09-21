@@ -1,9 +1,8 @@
 import { AppError } from "../../../utils/errors";
 import { prisma } from "../../../prisma/client";
-import { Category } from "@prisma/client";
-import { CategoryCreation } from "../../../@types/category";
+import { CategoryCreation, CategoryType } from "../../../@types/category";
 
-type CreateCategoryResponse = Category;
+type CreateCategoryResponse = CategoryType;
 type CreateCategoryRequest = CategoryCreation;
 
 export class CreateCategoryService {

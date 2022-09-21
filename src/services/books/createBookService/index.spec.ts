@@ -9,7 +9,7 @@ test("it should be possible to create a book...", async () => {
     author: 'Author example',
     price: 25.00,
     cover: 'Cover example'
-  })
+  });
 
   expect(response.statusCode).toBe(201);
 })
@@ -20,7 +20,7 @@ test("it shouldn't be possible to create a book if a missing required fields, li
     description: 'Description example',
     price: 25.00,
     cover: 'Cover example'
-  })
+  });
 
   expect(response.statusCode).toBe(400);
 })

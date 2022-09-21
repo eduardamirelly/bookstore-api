@@ -9,7 +9,7 @@ test("it should be possible to delete a book...", async () => {
     author: 'Author example 4',
     price: 25.00,
     cover: 'Cover example 4'
-  })
+  });
 
   expect(responseBookCreated.statusCode).toBe(201);
 

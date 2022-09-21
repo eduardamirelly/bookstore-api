@@ -1,10 +1,5 @@
-export interface CategoryType {
-  id: string;
-  name: string;
-  createdAt: Date;
-  updatedAt: Date;
-}
+import { Category } from "@prisma/client";
 
-export interface CategoryCreation {
-  name: string;
-}
+export type CategoryType = Category;
+
+export type CategoryCreation = Omit<CategoryType, "createdAt" | "updatedAt" | "id">;

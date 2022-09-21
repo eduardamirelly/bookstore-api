@@ -9,7 +9,7 @@ test("it should be possible to show the fields book...", async () => {
     author: 'Author example 3',
     price: 25.00,
     cover: 'Cover example 3'
-  })
+  });
 
   expect(responseBookCreated.statusCode).toBe(201);
 
