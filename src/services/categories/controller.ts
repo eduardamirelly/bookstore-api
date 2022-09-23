@@ -1,8 +1,17 @@
 import { RequestHandler, Response } from "express";
 import { CreateCategoryService } from "./createCategoryService";
+import { ShowCategoriesService } from "./showCategoriesService";
 import { UpdateCategoryService } from "./updateCategoryService";
 
 export class CategoryController {
+  show: RequestHandler = async (request, response): Promise<Response> => {
+    const showCategoriesService = new ShowCategoriesService();
+
+    const categories = await showCategoriesService.execute();
+
+    return response.status(200).json(categories);
+  }
+
   create: RequestHandler = async (request, response): Promise<Response> => {
     const { name } = request.body;
 
