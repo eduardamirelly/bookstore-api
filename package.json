@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "npx nodemon",
-    "test": "jest --forceExit"
+    "test": "jest --watchAll"
   },
   "keywords": [],
   "author": "",

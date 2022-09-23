@@ -1,5 +1,6 @@
 import { RequestHandler, Response } from "express";
 import { CreateCategoryService } from "./createCategoryService";
+import { DeleteCategoryService } from "./deleteCategoryService";
 import { ShowCategoriesService } from "./showCategoriesService";
 import { UpdateCategoryService } from "./updateCategoryService";
 
@@ -33,5 +34,17 @@ export class CategoryController {
     const category = await updateCategoryService.execute(categoryId, body);
 
     return response.status(200).json(category);
+  }
+
+  delete: RequestHandler = async (request, response): Promise<Response> => {
+    const {
+      params: { categoryId }
+    } = request;
+
+    const deleteCategoryService = new DeleteCategoryService();
+
+    await deleteCategoryService.execute(categoryId);
+
+    return response.status(204).send();
   }
 }

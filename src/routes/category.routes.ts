@@ -8,5 +8,6 @@ const categoryRoutes = Router();
 categoryRoutes.get("/", categoryController.show);
 categoryRoutes.post("/", categoryController.create);
 categoryRoutes.put("/:categoryId", categoryController.update);
+categoryRoutes.delete("/:categoryId", categoryController.delete);
 
 export { categoryRoutes };
