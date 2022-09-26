@@ -1,4 +1,3 @@
-import { AppError } from "../../../utils/errors";
 import { prisma } from "../../../prisma/client";
 import { CategoryType } from "../../../@types/category";
 

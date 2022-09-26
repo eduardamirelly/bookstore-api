@@ -12,8 +12,15 @@ export class ShowBookService {
       {
         where:{
           id: bookId,
+        },
+        include: {
+          categories: {
+            select: {
+              category: true
+            }
+          }
         }
-      }
+      },
     );
 
     if (!book) {

@@ -2,6 +2,7 @@ import { RequestHandler, response, Response } from "express";
 import { CreateBookService } from "./createBookService";
 import { DeleteBookService } from "./deleteBookService";
 import { ShowBookService } from "./showBookService";
+import { ShowBooksService } from "./showBooksService";
 import { UpdateBookService } from "./updateBookService";
 
 export class BookController {
@@ -17,12 +18,20 @@ export class BookController {
     return response.status(200).json(book);
   }
 
+  showAll: RequestHandler = async (request, response): Promise<Response> => {
+    const showBooksService = new ShowBooksService();
+
+    const books = await showBooksService.execute();
+
+    return response.status(200).json(books);
+  }
+
   create: RequestHandler = async (request, response): Promise<Response> => {
-    const { title, description, author, price, cover } = request.body;
+    const { title, description, author, price, cover, categories } = request.body;
 
     const createBookService = new CreateBookService();
 
-    const book = await createBookService.execute({title, description, author, price, cover});
+    const book = await createBookService.execute({title, description, author, price, cover, categories});
 
     return response.status(201).json(book);
   }
