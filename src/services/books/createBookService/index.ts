@@ -68,7 +68,16 @@ export class CreateBookService {
       });
     }
 
-    return book;
+    const bookUpdated = await prisma.book.findUniqueOrThrow({
+      where: {
+        id: book.id,
+      },
+      include: {
+        categories: true,
+      }
+    });
+
+    return bookUpdated;
   }
 }
 
