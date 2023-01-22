@@ -1,11 +1,11 @@
-import { RequestHandler, Response } from "express";
+import { Request, RequestHandler, Response } from "express";
 import { CreateCategoryService } from "./createCategoryService";
 import { DeleteCategoryService } from "./deleteCategoryService";
 import { ShowCategoriesService } from "./showCategoriesService";
 import { UpdateCategoryService } from "./updateCategoryService";
 
 export class CategoryController {
-  show: RequestHandler = async (request, response): Promise<Response> => {
+  show: RequestHandler = async (request: Request, response: Response): Promise<Response> => {
     const showCategoriesService = new ShowCategoriesService();
 
     const categories = await showCategoriesService.execute();
@@ -13,7 +13,7 @@ export class CategoryController {
     return response.status(200).json(categories);
   }
 
-  create: RequestHandler = async (request, response): Promise<Response> => {
+  create: RequestHandler = async (request: Request, response: Response): Promise<Response> => {
     const { name } = request.body;
 
     const createCategoryService = new CreateCategoryService();
@@ -23,7 +23,7 @@ export class CategoryController {
     return response.status(201).json(category);
   }
 
-  update: RequestHandler = async (request, response): Promise<Response> => {
+  update: RequestHandler = async (request: Request, response: Response): Promise<Response> => {
     const {
       params: { categoryId },
       body
@@ -36,7 +36,7 @@ export class CategoryController {
     return response.status(200).json(category);
   }
 
-  delete: RequestHandler = async (request, response): Promise<Response> => {
+  delete: RequestHandler = async (request: Request, response: Response): Promise<Response> => {
     const {
       params: { categoryId }
     } = request;
