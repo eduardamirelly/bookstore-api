@@ -45,6 +45,29 @@ export class CreateBookService {
       },
     })
 
+    if (isCategoriesExists && isCategoriesExists.length > 0) {
+      //Registering categories on book
+
+      isCategoriesExists.map(async (category) => {
+        await prisma.book.update({
+          where: {
+            id: book.id,
+          },
+          data: {
+            categories: {
+              create: {
+                category: {
+                  connect: {
+                    id: category.id
+                  }
+                }
+              }
+            }
+          }
+        })
+      });
+    }
+
     return book;
   }
 }
