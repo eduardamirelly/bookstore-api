@@ -7,3 +7,17 @@ test("it should be possible to show all the books...", async () => {
 
   expect(response.statusCode).toBe(200);
 })
+
+test("it should be possible to filter using query params and show the books...", async () => {
+  const responseFilterCategory = await request(app).get('/books/?category=Romance').send();
+  expect(responseFilterCategory.statusCode).toBe(200);
+
+  const responseFilterSort = await request(app).get('/books/?sort=asc').send();
+  expect(responseFilterSort.statusCode).toBe(200);
+
+  const responseFilterSearch = await request(app).get('/books/?search=example').send();
+  expect(responseFilterSearch.statusCode).toBe(200);
+
+  const responseAllFilter = await request(app).get('/books/?search=example&sort=asc&category=Romance').send();
+  expect(responseAllFilter.statusCode).toBe(200);
+})
