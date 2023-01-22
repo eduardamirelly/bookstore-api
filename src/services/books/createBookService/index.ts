@@ -2,6 +2,7 @@ import { AppError } from "../../../utils/errors";
 import { prisma } from "../../../prisma/client";
 
 import { BookCreation, BookType } from "../../../@types/book";
+import { Category } from "@prisma/client";
 
 type CreateBookResponse = BookType;
 // type CreateBookRequest = BookCreation;
@@ -17,21 +18,12 @@ export class CreateBookService {
       throw new AppError('Missing fields');
     }
 
-    const book = await prisma.book.create({
-      data: {
-        title,
-        description,
-        author,
-        price,
-        cover
-      },
-    })
+    let isCategoriesExists: Category[] = [];
 
-    if (categories && categories.length > 0) {
-
+    if(categories && categories.length > 0) {
       //Verify if the categories exists
 
-      const isCategoriesExists = await prisma.category.findMany({
+       isCategoriesExists = await prisma.category.findMany({
         where: {
           name: {
             in: categories
@@ -42,43 +34,17 @@ export class CreateBookService {
       if (isCategoriesExists.length < 1 || !isCategoriesExists) {
         throw new AppError("Categories don't exists");
       }
-
-      //Verify if the connection between Book and categories already exists
-
-      const isAlreadyExistsBookOnCategories = await prisma.categoriesOnBooks.findMany({
-        where: {
-          bookId: book.id,
-          categoryId: {
-            in: isCategoriesExists.map((category) => category.id)
-          }
-        }
-      })
-
-      if (isAlreadyExistsBookOnCategories.length > 0) {
-        throw new AppError("Connection between Book and Categories already exists");
-      }
-
-      //Registering categories on book
-
-      isCategoriesExists.map(async (category) => {
-        await prisma.book.update({
-          where: {
-            id: book.id,
-          },
-          data: {
-            categories: {
-              create: {
-                category: {
-                  connect: {
-                    id: category.id
-                  }
-                }
-              }
-            }
-          }
-        })
-      })
     }
+
+    const book = await prisma.book.create({
+      data: {
+        title,
+        description,
+        author,
+        price,
+        cover
+      },
+    })
 
     return book;
   }
