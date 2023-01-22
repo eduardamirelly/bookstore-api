@@ -26,7 +26,7 @@ export class BookController {
     return response.status(200).json(books);
   }
 
-  create: RequestHandler = async (request, response: Response): Promise<Response> => {
+  create: RequestHandler = async (request: Request, response: Response): Promise<Response> => {
     const { title, description, author, price, cover, categories } = request.body;
 
     const createBookService = new CreateBookService();
