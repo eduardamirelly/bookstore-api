@@ -73,7 +73,11 @@ export class CreateBookService {
         id: book.id,
       },
       include: {
-        categories: true,
+        categories: {
+          select: {
+            category: true,
+          }
+        },
       }
     });
 
