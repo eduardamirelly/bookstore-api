@@ -8,7 +8,7 @@ type ShowBookResponse = BookPartial;
 export class ShowBookService {
   async execute(bookId: string): Promise<ShowBookResponse> {
 
-    const book = await prisma.book.findFirst(
+    const book = await prisma.book.findUnique(
       {
         where:{
           id: bookId,
