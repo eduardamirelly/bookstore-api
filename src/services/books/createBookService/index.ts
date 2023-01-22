@@ -5,7 +5,6 @@ import { BookCreation, BookType } from "../../../@types/book";
 import { Category } from "@prisma/client";
 
 type CreateBookResponse = BookType;
-// type CreateBookRequest = BookCreation;
 
 interface CreateBookRequest extends BookCreation {
   categories?: string[];
