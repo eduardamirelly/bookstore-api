@@ -1,5 +1,5 @@
-import express, { NextFunction, Request, Response } from 'express';
 import cors from 'cors';
+import express, { NextFunction, Request, Response } from 'express';
 
 import 'express-async-errors';
 
@@ -9,7 +9,9 @@ import { AppError } from './utils/errors';
 const app = express();
 
 app.use(express.json());
-app.use(cors());
+app.use(cors({
+  origin: 'http://localhost:3000',
+}));
 
 app.use(routes);
 
