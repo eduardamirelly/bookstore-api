@@ -20,7 +20,7 @@ model Book {
   price        Float
   cover        String
   isFavorite   Boolean             @default(false)
-  isInTreeding Boolean             @default(false)
+  isInTrending Boolean             @default(false)
   createdAt    DateTime            @default(now())
   updatedAt    DateTime            @updatedAt
   categories   CategoriesOnBooks[]
