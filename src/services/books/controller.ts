@@ -27,11 +27,29 @@ export class BookController {
   }
 
   create: RequestHandler = async (request: Request, response: Response): Promise<Response> => {
-    const { title, description, author, price, cover, categories } = request.body;
+    const {
+      title,
+      description,
+      author,
+      price,
+      cover,
+      categories,
+      isFavorite = false,
+      isInTrending = false
+    } = request.body;
 
     const createBookService = new CreateBookService();
 
-    const book = await createBookService.execute({title, description, author, price, cover, categories});
+    const book = await createBookService.execute({
+      title,
+      description,
+      author,
+      price,
+      cover,
+      categories,
+      isFavorite,
+      isInTrending
+    });
 
     return response.status(201).json(book);
   }

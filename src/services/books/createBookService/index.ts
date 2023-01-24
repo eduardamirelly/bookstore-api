@@ -1,8 +1,8 @@
-import { AppError } from "../../../utils/errors";
 import { prisma } from "../../../prisma/client";
+import { AppError } from "../../../utils/errors";
 
-import { BookCreation, BookType } from "../../../@types/book";
 import { Category } from "@prisma/client";
+import { BookCreation, BookType } from "../../../@types/book";
 
 type CreateBookResponse = BookType;
 
@@ -11,7 +11,16 @@ interface CreateBookRequest extends BookCreation {
 };
 
 export class CreateBookService {
-  async execute({ title, description, author, price, cover , categories }: CreateBookRequest): Promise<CreateBookResponse> {
+  async execute(
+    { title,
+      description,
+      author,
+      price,
+      cover,
+      isFavorite = false,
+      isInTrending = false,
+      categories
+    }: CreateBookRequest): Promise<CreateBookResponse> {
 
     if (!title || !description || !author || !price || !cover) {
       throw new AppError('Missing fields');
@@ -41,7 +50,9 @@ export class CreateBookService {
         description,
         author,
         price,
-        cover
+        cover,
+        isFavorite,
+        isInTrending,
       },
     })
 
