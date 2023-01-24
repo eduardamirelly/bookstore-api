@@ -1,8 +1,8 @@
 import { prisma } from "../../../prisma/client";
 
-import { BookType } from "../../../@types/book";
 import { Request } from "express";
 import { ParsedUrlQuery } from "querystring";
+import { BookType } from "../../../@types/book";
 
 type ShowBooksResponse = BookType[];
 
@@ -10,6 +10,7 @@ interface RequestProps extends ParsedUrlQuery {
   search?: string;
   sort?: 'asc' | 'desc';
   category?: string;
+  isInTrending?: 'true' | 'false';
 }
 
 export class ShowBooksService {
@@ -20,62 +21,88 @@ export class ShowBooksService {
     const search = query.search || '';
     const sort = query.sort || 'desc';
     const category = query.category || '';
+    const isInTrending = query.isInTrending || 'false';
 
     let books = [];
 
+    let orderBy = [
+      {
+        createdAt: sort,
+      },
+      {
+        title: sort,
+      }
+    ];
+
+    let include = {
+      categories: {
+        select: {
+          category: true
+        }
+      }
+    };
+
     if(category) {
-      books = await prisma.book.findMany({
-        orderBy: [
-          {
-            createdAt: sort,
+      if (isInTrending == 'true') {
+        books = await prisma.book.findMany({
+          orderBy: orderBy,
+          where: {
+            categories: {
+              some: {
+                category: {
+                  name: category,
+                }
+              },
+            },
+            title: {
+              contains: search,
+              mode: 'insensitive',
+            },
+            isInTrending: true,
           },
-          {
-            title: sort,
-          }
-        ],
-        where: {
-          categories: {
-            some: {
-              category: {
-                name: category,
-              }
+          include: include,
+        });
+      } else {
+        books = await prisma.book.findMany({
+          orderBy: orderBy,
+          where: {
+            categories: {
+              some: {
+                category: {
+                  name: category,
+                }
+              },
+            },
+            title: {
+              contains: search,
             },
           },
-          title: {
-            contains: search,
-          }
-        },
-        include: {
-          categories: {
-            select: {
-              category: true
-            }
-          }
-        }
-      });
+          include: include,
+        });
+      }
     } else {
-      books = await prisma.book.findMany({
-        orderBy: [
-          {
-            createdAt: sort,
+      if (isInTrending == 'true') {
+        books = await prisma.book.findMany({
+          orderBy: orderBy,
+          where: {
+            title: {
+              contains: search,
+            },
+            isInTrending: true,
           },
-          {
-            title: sort,
-          }
-        ],
-        where: {
-          title: {
-            contains: search,
-          }
-        },
-        include: {
-          categories: {
-            select: {
-              category: true
+          include: include,
+        });
+      } else {
+        books = await prisma.book.findMany({
+          orderBy: orderBy,
+          where: {
+            title: {
+              contains: search,
             }
-          }
-        }
-      });
+          },
+          include: include,
+        });
+      }
     }
 
     return books;
