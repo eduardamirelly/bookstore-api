@@ -8,7 +8,8 @@ test("it should be possible to create a book...", async () => {
     description: 'Description example',
     author: 'Author example',
     price: 25.00,
-    cover: 'Cover example'
+    cover: 'Cover example',
+    isInTrending: true,
   });
 
   expect(response.statusCode).toBe(201);

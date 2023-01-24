@@ -18,6 +18,9 @@ test("it should be possible to filter using query params and show the books...",
   const responseFilterSearch = await request(app).get('/books/?search=example').send();
   expect(responseFilterSearch.statusCode).toBe(200);
 
-  const responseAllFilter = await request(app).get('/books/?search=example&sort=asc&category=Romance').send();
+  const responseFilterisInTreding = await request(app).get('/books/?isInTreding=true').send();
+  expect(responseFilterisInTreding.statusCode).toBe(200);
+
+  const responseAllFilter = await request(app).get('/books/?search=example&sort=asc&category=Romance&isInTreding=true').send();
   expect(responseAllFilter.statusCode).toBe(200);
 })
